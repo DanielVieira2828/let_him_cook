@@ -1,22 +1,20 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:flutter/widgets.dart';
 import 'package:let_him_cook/constants.dart';
 import 'package:let_him_cook/screens/initial_screen/widgets/enter_form.dart';
 import 'package:let_him_cook/screens/initial_screen/widgets/login_screen.dart';
-import 'package:let_him_cook/widgets/form_field.dart';
 
 class InitialScreen extends StatefulWidget {
-  const InitialScreen({super.key});
+  const InitialScreen({
+    super.key,
+  });
 
   @override
   State<InitialScreen> createState() => _InitialScreenState();
 }
 
 class _InitialScreenState extends State<InitialScreen> {
-  bool showLoginForm =
-      false; // Adicionado para controlar a exibição do LoginForm
+  bool showLoginForm = false;
 
   @override
   void initState() {
@@ -27,7 +25,6 @@ class _InitialScreenState extends State<InitialScreen> {
     super.initState();
   }
 
-  // Método para alternar entre EnterForm e LoginScreen
   void toggleScreen() {
     setState(() {
       showLoginForm = !showLoginForm;
@@ -47,14 +44,12 @@ class _InitialScreenState extends State<InitialScreen> {
               width: double.infinity,
               decoration: const BoxDecoration(color: background),
               child: AnimatedSwitcher(
-                // AnimatedSwitcher para animar a transição
                 duration: const Duration(milliseconds: 500),
                 child: showLoginForm
                     ? LoginForm(
                         onToggle: toggleScreen,
-                      ) // Se showLoginForm for true, exiba LoginScreen
-                    : EnterForm(
-                        onToggle: toggleScreen), // Senão, exiba EnterForm
+                      )
+                    : EnterForm(onToggle: toggleScreen),
               ),
             ),
           ),

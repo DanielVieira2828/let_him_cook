@@ -2,7 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:let_him_cook/constants.dart';
 
 class OrderScreen extends StatefulWidget {
-  const OrderScreen({Key? key}) : super(key: key);
+  const OrderScreen({
+    super.key,
+  });
 
   @override
   State<OrderScreen> createState() => _OrderScreenState();
@@ -17,7 +19,7 @@ class _OrderScreenState extends State<OrderScreen> {
         child: Container(
           color: primaryColor,
           height: double.infinity,
-          child: Row(
+          child: const Row(
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [],
           ),
@@ -29,7 +31,7 @@ class _OrderScreenState extends State<OrderScreen> {
             width: 250,
             child: Container(
               color: secondarybackground,
-              child: Column(),
+              child: const Column(),
             ),
           ),
           Expanded(

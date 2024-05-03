@@ -1,6 +1,4 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:let_him_cook/constants.dart';
 
 class LHCFormField extends StatelessWidget {
@@ -32,7 +30,7 @@ class LHCFormField extends StatelessWidget {
             height: 16,
           ),
           TextField(
-            inputFormatters: [],
+            inputFormatters: const [],
             style: const TextStyle(fontSize: 40, color: secondaryColor),
             controller: controller,
             enabled: true,

@@ -7,10 +7,10 @@ class DishCard extends StatelessWidget {
   Widget build(BuildContext context) {
     return Card(
       elevation: 1,
-      child: Column(),
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.circular(16),
       ),
+      child: const Column(),
     );
   }
 }
