@@ -49,7 +49,7 @@ class LHCFormField extends StatelessWidget {
             height: 30,
           ),
           SizedBox(
-            height: 146,
+            height: 120,
             width: double.infinity,
             child: ElevatedButton(
               onPressed: () {},
@@ -67,7 +67,7 @@ class LHCFormField extends StatelessWidget {
                 "ENTRAR",
                 style: TextStyle(
                   color: Colors.white,
-                  fontSize: 60,
+                  fontSize: 50,
                   fontWeight: FontWeight.bold,
                 ),
               ),

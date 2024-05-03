@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:let_him_cook/screens/initial_screen.dart';
+import 'package:let_him_cook/screens/initial_screen/initial_screen.dart';
 
 void main() {
   runApp(const MyApp());

@@ -1,18 +1,16 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:flutter/widgets.dart';
 import 'package:let_him_cook/constants.dart';
 import 'package:let_him_cook/widgets/form_field.dart';
 
-class InitialScreen extends StatefulWidget {
-  const InitialScreen({super.key});
+class LoginScreen extends StatefulWidget {
+  const LoginScreen({super.key});
 
   @override
-  State<InitialScreen> createState() => _InitialScreenState();
+  State<LoginScreen> createState() => _LoginScreenState();
 }
 
-class _InitialScreenState extends State<InitialScreen> {
+class _LoginScreenState extends State<LoginScreen> {
   TextEditingController cpfController = TextEditingController();
 
   @override
@@ -27,6 +25,12 @@ class _InitialScreenState extends State<InitialScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      extendBodyBehindAppBar: true,
+      appBar: AppBar(
+        elevation: 0,
+        backgroundColor: Colors.transparent,
+      ),
+      resizeToAvoidBottomInset: false,
       body: Row(
         children: [
           Expanded(
