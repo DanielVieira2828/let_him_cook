@@ -32,6 +32,7 @@ class LHCFormField extends StatelessWidget {
             height: 16,
           ),
           TextField(
+            inputFormatters: [],
             style: const TextStyle(fontSize: 40, color: secondaryColor),
             controller: controller,
             enabled: true,

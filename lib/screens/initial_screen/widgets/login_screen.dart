@@ -1,16 +1,23 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter/widgets.dart';
 import 'package:let_him_cook/constants.dart';
+import 'package:let_him_cook/screens/order_screen/order_screen.dart';
 import 'package:let_him_cook/widgets/form_field.dart';
 
-class LoginScreen extends StatefulWidget {
-  const LoginScreen({super.key});
+class LoginForm extends StatefulWidget {
+  const LoginForm({
+    super.key,
+    required this.onToggle,
+  });
+
+  final VoidCallback onToggle;
 
   @override
-  State<LoginScreen> createState() => _LoginScreenState();
+  State<LoginForm> createState() => _LoginFormState();
 }
 
-class _LoginScreenState extends State<LoginScreen> {
+class _LoginFormState extends State<LoginForm> {
   TextEditingController cpfController = TextEditingController();
 
   @override
@@ -24,45 +31,90 @@ class _LoginScreenState extends State<LoginScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      extendBodyBehindAppBar: true,
-      appBar: AppBar(
-        elevation: 0,
-        backgroundColor: Colors.transparent,
-      ),
-      resizeToAvoidBottomInset: false,
-      body: Row(
-        children: [
-          Expanded(
-            child: Container(
-              padding: const EdgeInsets.all(32),
-              height: double.infinity,
-              width: double.infinity,
-              decoration: const BoxDecoration(color: background),
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                crossAxisAlignment: CrossAxisAlignment.center,
-                children: [
-                  LHCFormField(
-                    label: "Insira seu CPF",
-                    controller: cpfController,
+    return Stack(
+      children: [
+        IconButton(
+          onPressed: widget.onToggle,
+          style: const ButtonStyle(
+            backgroundColor: MaterialStatePropertyAll(primaryColor),
+            shape: MaterialStatePropertyAll(
+              CircleBorder(),
+            ),
+          ),
+          icon: const Icon(
+            Icons.arrow_back,
+            color: secondaryColor,
+            size: 30,
+          ),
+        ),
+        SizedBox(
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: [
+              const Text(
+                "Insira seu CPF",
+                style: TextStyle(
+                  color: secondaryColor,
+                  fontSize: 50,
+                  fontWeight: FontWeight.bold,
+                ),
+              ),
+              const SizedBox(
+                height: 16,
+              ),
+              TextField(
+                style: const TextStyle(fontSize: 40, color: secondaryColor),
+                controller: cpfController,
+                enabled: true,
+                textAlign: TextAlign.center,
+                decoration: InputDecoration(
+                  fillColor: secondarybackground,
+                  filled: true,
+                  border: OutlineInputBorder(
+                    borderSide: BorderSide.none,
+                    borderRadius: BorderRadius.circular(50),
                   ),
-                ],
+                ),
               ),
-            ),
-          ),
-          Expanded(
-            child: Container(
-              height: double.infinity,
-              width: double.infinity,
-              decoration: const BoxDecoration(color: primaryColor),
-              child: Center(
-                child: Image.asset("assets/images/logo.png"),
+              const SizedBox(
+                height: 30,
               ),
-            ),
+              SizedBox(
+                height: 120,
+                width: double.infinity,
+                child: ElevatedButton(
+                  onPressed: () {
+                    Navigator.of(context).pushAndRemoveUntil(
+                        MaterialPageRoute(
+                          builder: (context) => const OrderScreen(),
+                        ),
+                        (route) => false);
+                  },
+                  style: const ButtonStyle(
+                    backgroundColor: MaterialStatePropertyAll(onBackground),
+                    shape: MaterialStatePropertyAll(
+                      RoundedRectangleBorder(
+                        borderRadius: BorderRadius.all(
+                          Radius.circular(16),
+                        ),
+                      ),
+                    ),
+                  ),
+                  child: const Text(
+                    "ENTRAR",
+                    style: TextStyle(
+                      color: Colors.white,
+                      fontSize: 50,
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
+                ),
+              ),
+            ],
           ),
-        ],
-      ),
+        ),
+      ],
     );
   }
 }

@@ -50,7 +50,9 @@ class _InitialScreenState extends State<InitialScreen> {
                 // AnimatedSwitcher para animar a transição
                 duration: const Duration(milliseconds: 500),
                 child: showLoginForm
-                    ? const LoginScreen() // Se showLoginForm for true, exiba LoginScreen
+                    ? LoginForm(
+                        onToggle: toggleScreen,
+                      ) // Se showLoginForm for true, exiba LoginScreen
                     : EnterForm(
                         onToggle: toggleScreen), // Senão, exiba EnterForm
               ),
