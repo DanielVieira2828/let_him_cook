@@ -38,7 +38,7 @@ class _OrderScreenState extends State<OrderScreen> {
             child: Container(
               padding: const EdgeInsets.all(32),
               child: GridView.builder(
-                itemCount: 100,
+                itemCount: 10,
                 gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
                   crossAxisCount: 4,
                   crossAxisSpacing: 20,

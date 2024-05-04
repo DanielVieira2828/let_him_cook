@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:let_him_cook/constants.dart';
+import 'package:let_him_cook/screens/order_screen/order_screen.dart';
+import 'package:let_him_cook/screens/register_screen/register_screen.dart';
 
 class EnterForm extends StatelessWidget {
   const EnterForm({
@@ -20,7 +22,13 @@ class EnterForm extends StatelessWidget {
             width: double.infinity,
             height: 180,
             child: ElevatedButton(
-              onPressed: () {},
+              onPressed: () {
+                Navigator.of(context).pushAndRemoveUntil(
+                    MaterialPageRoute(
+                      builder: (context) => const OrderScreen(),
+                    ),
+                    (route) => false);
+              },
               style: const ButtonStyle(
                 backgroundColor: MaterialStatePropertyAll(onBackground),
                 shape: MaterialStatePropertyAll(
@@ -95,7 +103,7 @@ class EnterForm extends StatelessWidget {
                     borderRadius: BorderRadius.circular(16),
                   ),
                   child: const Text(
-                    "Entrar",
+                    "Logar",
                     style: TextStyle(
                       color: secondaryColor,
                       fontSize: 20,
@@ -108,7 +116,13 @@ class EnterForm extends StatelessWidget {
                 width: 20,
               ),
               InkWell(
-                onTap: () {},
+                onTap: () {
+                  Navigator.of(context).pushAndRemoveUntil(
+                      MaterialPageRoute(
+                        builder: (context) => const RegisterScreen(),
+                      ),
+                      (route) => false);
+                },
                 child: Container(
                   padding: const EdgeInsets.all(16),
                   alignment: Alignment.center,

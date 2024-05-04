@@ -16,7 +16,9 @@ class LoginForm extends StatefulWidget {
 }
 
 class _LoginFormState extends State<LoginForm> {
+  bool showLoginForm = false;
   TextEditingController cpfController = TextEditingController();
+  TextEditingController nameController = TextEditingController();
 
   @override
   void initState() {
@@ -83,11 +85,11 @@ class _LoginFormState extends State<LoginForm> {
                 width: double.infinity,
                 child: ElevatedButton(
                   onPressed: () {
-                    Navigator.of(context).pushAndRemoveUntil(
-                        MaterialPageRoute(
-                          builder: (context) => const OrderScreen(),
-                        ),
-                        (route) => false);
+                    Navigator.of(context).push(
+                      MaterialPageRoute(
+                        builder: (context) => const OrderScreen(),
+                      ),
+                    );
                   },
                   style: const ButtonStyle(
                     backgroundColor: MaterialStatePropertyAll(onBackground),
