@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:let_him_cook/constants.dart';
-import 'package:let_him_cook/screens/initial_screen/widgets/enter_form.dart';
-import 'package:let_him_cook/screens/initial_screen/widgets/login_screen.dart';
+import 'package:let_him_cook/screens/initial_screen/widgets/cpf_form.dart';
+import 'package:let_him_cook/screens/initial_screen/widgets/name_form.dart';
 
 class InitialScreen extends StatefulWidget {
   const InitialScreen({
@@ -14,7 +14,9 @@ class InitialScreen extends StatefulWidget {
 }
 
 class _InitialScreenState extends State<InitialScreen> {
-  bool showLoginForm = false;
+  bool showNameForm = false;
+  TextEditingController nameController = TextEditingController();
+  TextEditingController cpfController = TextEditingController();
 
   @override
   void initState() {
@@ -25,9 +27,15 @@ class _InitialScreenState extends State<InitialScreen> {
     super.initState();
   }
 
-  void toggleScreen() {
+  void checkUserRegister() {
     setState(() {
-      showLoginForm = !showLoginForm;
+      showNameForm = !showNameForm;
+    });
+  }
+
+  void registerUser() {
+    setState(() {
+      showNameForm = !showNameForm;
     });
   }
 
@@ -44,13 +52,14 @@ class _InitialScreenState extends State<InitialScreen> {
               width: double.infinity,
               decoration: const BoxDecoration(color: background),
               child: AnimatedSwitcher(
-                duration: const Duration(milliseconds: 500),
-                child: showLoginForm
-                    ? LoginForm(
-                        onToggle: toggleScreen,
-                      )
-                    : EnterForm(onToggle: toggleScreen),
-              ),
+                  duration: const Duration(milliseconds: 500),
+                  child: showNameForm
+                      ? NameForm(
+                          nameController: nameController,
+                          registerUser: registerUser)
+                      : CpfForm(
+                          cpfController: cpfController,
+                          onToggle: checkUserRegister)),
             ),
           ),
           Expanded(
