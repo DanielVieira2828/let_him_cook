@@ -50,7 +50,7 @@ class CpfForm extends StatelessWidget {
             width: double.infinity,
             height: 130,
             child: ElevatedButton(
-              onPressed: () {},
+              onPressed: onToggle,
               style: const ButtonStyle(
                 backgroundColor: MaterialStatePropertyAll(onBackground),
                 shape: MaterialStatePropertyAll(

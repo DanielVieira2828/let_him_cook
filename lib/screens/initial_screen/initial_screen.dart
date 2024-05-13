@@ -3,6 +3,7 @@ import 'package:flutter/services.dart';
 import 'package:let_him_cook/constants.dart';
 import 'package:let_him_cook/screens/initial_screen/widgets/cpf_form.dart';
 import 'package:let_him_cook/screens/initial_screen/widgets/name_form.dart';
+import 'package:let_him_cook/screens/order_screen/order_screen.dart';
 
 class InitialScreen extends StatefulWidget {
   const InitialScreen({
@@ -33,10 +34,12 @@ class _InitialScreenState extends State<InitialScreen> {
     });
   }
 
-  void registerUser() {
-    setState(() {
-      showNameForm = !showNameForm;
-    });
+  registerUser() {
+    Navigator.push(
+        context,
+        MaterialPageRoute(
+          builder: (context) => const OrderScreen(),
+        ));
   }
 
   @override
