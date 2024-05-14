@@ -138,7 +138,10 @@ class _OrderScreenState extends State<OrderScreen> {
                           .where((dish) => dish.category == category)
                           .toList();
                       var dish = filteredDishes[index];
-                      return DishCard(dish: dish);
+                      return DishCard(
+                        dish: dish,
+                        openDishModal: () {},
+                      );
                     },
                   ),
                 ),
