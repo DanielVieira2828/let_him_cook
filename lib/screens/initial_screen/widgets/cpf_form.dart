@@ -30,7 +30,7 @@ class CpfForm extends StatelessWidget {
             height: 16,
           ),
           TextField(
-            style: const TextStyle(fontSize: 40, color: secondaryColor),
+            style: const TextStyle(fontSize: 30, color: secondaryColor),
             enabled: true,
             controller: cpfController,
             textAlign: TextAlign.center,
@@ -44,7 +44,7 @@ class CpfForm extends StatelessWidget {
             ),
           ),
           const SizedBox(
-            height: 16,
+            height: 32,
           ),
           SizedBox(
             width: double.infinity,

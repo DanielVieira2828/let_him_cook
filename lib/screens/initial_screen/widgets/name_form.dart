@@ -19,6 +19,14 @@ class NameForm extends StatelessWidget {
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
           const Text(
+            "Parece que você é um novo cliente!",
+            style: TextStyle(
+              fontWeight: FontWeight.bold,
+              fontSize: 30,
+              color: Color(0xFF6A6A6A),
+            ),
+          ),
+          const Text(
             "Insira seu nome",
             style: TextStyle(
               color: secondaryColor,
@@ -30,7 +38,7 @@ class NameForm extends StatelessWidget {
             height: 16,
           ),
           TextField(
-            style: const TextStyle(fontSize: 40, color: secondaryColor),
+            style: const TextStyle(fontSize: 30, color: secondaryColor),
             enabled: true,
             controller: nameController,
             textAlign: TextAlign.center,
@@ -44,7 +52,7 @@ class NameForm extends StatelessWidget {
             ),
           ),
           const SizedBox(
-            height: 16,
+            height: 32,
           ),
           SizedBox(
             width: double.infinity,

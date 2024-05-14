@@ -1,5 +1,11 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 import 'package:let_him_cook/constants.dart';
+import 'package:let_him_cook/dummyData/dummy_dishes.dart';
+import 'package:let_him_cook/models/dish_model.dart';
+import 'package:let_him_cook/screens/order_screen/widget/dish_cards.dart';
+import 'package:let_him_cook/screens/order_screen/widget/menu_items.dart';
 
 class OrderScreen extends StatefulWidget {
   const OrderScreen({
@@ -11,6 +17,26 @@ class OrderScreen extends StatefulWidget {
 }
 
 class _OrderScreenState extends State<OrderScreen> {
+  List<Dish> dishes = [];
+  String category = "Lanche";
+
+  @override
+  void initState() {
+    dishes = dishList;
+    category = "Lanche";
+    super.initState();
+  }
+
+  changeCategory(String newCategory) {
+    if (category == newCategory) {
+      return;
+    } else {
+      setState(() {
+        category = newCategory;
+      });
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -28,68 +54,124 @@ class _OrderScreenState extends State<OrderScreen> {
       body: Row(
         children: [
           SizedBox(
-            width: 250,
+            width: 200,
             child: Container(
               color: secondarybackground,
-              child: const Column(),
-            ),
-          ),
-          Expanded(
-            child: Container(
-              padding: const EdgeInsets.all(32),
-              child: GridView.builder(
-                itemCount: 10,
-                gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-                  crossAxisCount: 4,
-                  crossAxisSpacing: 20,
-                  mainAxisSpacing: 20,
-                ),
-                itemBuilder: (BuildContext context, int index) {
-                  return Card(
-                    elevation: 10,
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(16),
-                    ),
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Container(
+                    margin: const EdgeInsets.all(16),
                     child: Column(
                       children: [
-                        Expanded(
-                          child: ClipRRect(
-                            borderRadius: const BorderRadius.only(
-                              topLeft: Radius.circular(16),
-                              topRight: Radius.circular(16),
-                            ),
-                            child: Image.network(
-                              "https://img.freepik.com/fotos-gratis/hamburguer-saboroso-isolado-no-fundo-branco-fastfood-de-hamburguer-fresco-com-carne-e-queijo_90220-1063.jpg",
-                              fit: BoxFit.cover,
-                              width: double.infinity,
-                              height: 200, // Adjust height as needed
-                            ),
-                          ),
+                        MenuItem(
+                          changePage: () {
+                            changeCategory("Lanche");
+                          },
+                          category: "Lanches",
                         ),
-                        Container(
-                          decoration: const BoxDecoration(
-                            color: onBackground,
-                            borderRadius: BorderRadius.only(
-                              bottomLeft: Radius.circular(16),
-                              bottomRight: Radius.circular(16),
-                            ),
-                          ),
-                          padding: const EdgeInsets.all(8),
-                          alignment: Alignment.bottomLeft,
-                          child: Text(
-                            'Item $index',
-                            style: const TextStyle(
-                              fontSize: 16,
-                              fontWeight: FontWeight.bold,
-                              color: background,
-                            ),
-                          ),
+                        const SizedBox(
+                          height: 16,
+                        ),
+                        MenuItem(
+                          changePage: () {
+                            changeCategory("Bebida");
+                          },
+                          category: "Bebidas",
                         ),
                       ],
                     ),
-                  );
-                },
+                  ),
+                  InkWell(
+                    child: Container(
+                      height: 150,
+                      width: double.infinity,
+                      decoration: const BoxDecoration(
+                        color: secondaryColor,
+                      ),
+                      child: const Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          Icon(
+                            Icons.receipt_long,
+                            color: Colors.white,
+                            size: 70,
+                          ),
+                          Text(
+                            "Pedidos",
+                            style: TextStyle(
+                              color: Colors.white,
+                              fontWeight: FontWeight.bold,
+                              fontSize: 25,
+                            ),
+                          )
+                        ],
+                      ),
+                    ),
+                  )
+                ],
               ),
+            ),
+          ),
+          Expanded(
+            child: Stack(
+              children: [
+                Container(
+                  padding: const EdgeInsets.only(
+                    bottom: 40,
+                    left: 32,
+                    right: 32,
+                    top: 16,
+                  ),
+                  child: GridView.builder(
+                    itemCount: dishes
+                        .where((dish) => dish.category == category)
+                        .length,
+                    gridDelegate:
+                        const SliverGridDelegateWithFixedCrossAxisCount(
+                      crossAxisCount: 4,
+                      crossAxisSpacing: 20,
+                      mainAxisSpacing: 20,
+                    ),
+                    itemBuilder: (context, index) {
+                      var filteredDishes = dishes
+                          .where((dish) => dish.category == category)
+                          .toList();
+                      var dish = filteredDishes[index];
+                      return DishCard(dish: dish);
+                    },
+                  ),
+                ),
+                Positioned(
+                  bottom: 12,
+                  right: 32,
+                  child: SizedBox(
+                    width: 170,
+                    height: 60,
+                    child: ElevatedButton(
+                      onPressed: () {},
+                      style: const ButtonStyle(
+                        backgroundColor: MaterialStatePropertyAll(onBackground),
+                        shape: MaterialStatePropertyAll(
+                          RoundedRectangleBorder(
+                            borderRadius: BorderRadius.all(
+                              Radius.circular(16),
+                            ),
+                          ),
+                        ),
+                      ),
+                      child: const Text(
+                        "Fazer pedido",
+                        style: TextStyle(
+                          color: Colors.white,
+                          fontSize: 20,
+                          fontWeight: FontWeight.bold,
+                        ),
+                      ),
+                    ),
+                  ),
+                ),
+              ],
             ),
           ),
         ],
