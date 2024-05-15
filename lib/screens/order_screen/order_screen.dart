@@ -4,11 +4,13 @@ import 'package:flutter/widgets.dart';
 import 'package:let_him_cook/constants.dart';
 import 'package:let_him_cook/dummyData/dummy_dishes.dart';
 import 'package:let_him_cook/models/dish_model.dart';
+import 'package:let_him_cook/models/dish_on_order.dart';
 import 'package:let_him_cook/models/order_model.dart';
 import 'package:let_him_cook/screens/order_screen/widget/dish_cards.dart';
 import 'package:let_him_cook/screens/order_screen/widget/dish_modal.dart';
 import 'package:let_him_cook/screens/order_screen/widget/menu_items.dart';
 import 'package:badges/badges.dart' as badges;
+import 'package:let_him_cook/screens/order_screen/widget/order_modal.dart';
 
 class OrderScreen extends StatefulWidget {
   const OrderScreen({
@@ -20,7 +22,7 @@ class OrderScreen extends StatefulWidget {
 }
 
 class _OrderScreenState extends State<OrderScreen> {
-  List<Dish> orderedDishes = [];
+  List<DishOnOrder> orderedDishes = [];
   List<Dish> dishes = [];
   String category = "Lanche";
 
@@ -31,16 +33,45 @@ class _OrderScreenState extends State<OrderScreen> {
     super.initState();
   }
 
-  addToOrderedDishes(Dish dish) {
-    if (!orderedDishes.contains(dish)) {
+  void addToOrderedDishes(Dish dish) {
+    bool found = false;
+    for (int i = 0; i < orderedDishes.length; i++) {
+      if (orderedDishes[i].uuid == dish.uuid) {
+        setState(() {
+          found = true;
+          orderedDishes[i] = DishOnOrder(
+            uuid: dish.uuid,
+            image: dish.image,
+            category: dish.category,
+            name: dish.name,
+            price: dish.price,
+            description: dish.description,
+            quantity: orderedDishes[i].quantity + 1,
+          );
+        });
+        Navigator.pop(context);
+        break;
+      }
+    }
+    if (!found) {
       setState(() {
-        orderedDishes.add(dish);
+        orderedDishes.add(
+          DishOnOrder(
+            uuid: dish.uuid,
+            image: dish.image,
+            category: dish.category,
+            name: dish.name,
+            price: dish.price,
+            description: dish.description,
+            quantity: 1, // Initial quantity is 1
+          ),
+        );
+        Navigator.pop(context);
       });
     }
-    Navigator.pop(context);
   }
 
-  bottomModal(Dish dish) {
+  addDishDialog(Dish dish) {
     showDialog(
         barrierDismissible: true,
         context: context,
@@ -53,6 +84,18 @@ class _OrderScreenState extends State<OrderScreen> {
               addDish: addToOrderedDishes,
             ),
           );
+        });
+  }
+
+  orderDialog() {
+    showDialog(
+        barrierDismissible: true,
+        context: context,
+        useSafeArea: true,
+        builder: (BuildContext context) {
+          return Dialog(
+              backgroundColor: Colors.white,
+              child: OrderModal(orderedDishes: orderedDishes));
         });
   }
 
@@ -127,7 +170,7 @@ class _OrderScreenState extends State<OrderScreen> {
                             size: 70,
                           ),
                           Text(
-                            "Pedidos",
+                            "PEDIDOS",
                             style: TextStyle(
                               color: Colors.white,
                               fontWeight: FontWeight.bold,
@@ -171,7 +214,7 @@ class _OrderScreenState extends State<OrderScreen> {
                       return DishCard(
                         dish: dish,
                         openDishModal: () {
-                          bottomModal(
+                          addDishDialog(
                             dish,
                           );
                         },
@@ -197,10 +240,12 @@ class _OrderScreenState extends State<OrderScreen> {
                           ),
                         ),
                         child: SizedBox(
-                          width: 170,
+                          width: 175,
                           height: 60,
                           child: ElevatedButton(
-                            onPressed: () {},
+                            onPressed: () {
+                              orderDialog();
+                            },
                             style: const ButtonStyle(
                               backgroundColor:
                                   MaterialStatePropertyAll(onBackground),
@@ -213,10 +258,10 @@ class _OrderScreenState extends State<OrderScreen> {
                               ),
                             ),
                             child: const Text(
-                              "Fazer pedido",
+                              "FAZER PEDIDO",
                               style: TextStyle(
                                 color: Colors.white,
-                                fontSize: 20,
+                                fontSize: 18,
                                 fontWeight: FontWeight.bold,
                               ),
                             ),

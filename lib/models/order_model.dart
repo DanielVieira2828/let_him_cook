@@ -1,4 +1,3 @@
-import 'package:let_him_cook/models/dish_model.dart';
 import 'package:let_him_cook/models/dish_on_order.dart';
 
 class Order {

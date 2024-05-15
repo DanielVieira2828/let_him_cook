@@ -70,10 +70,10 @@ class NameForm extends StatelessWidget {
                 ),
               ),
               child: const Text(
-                "Registrar-se",
+                "REGISTRAR-SE",
                 style: TextStyle(
                   color: Colors.white,
-                  fontSize: 60,
+                  fontSize: 50,
                   fontWeight: FontWeight.bold,
                 ),
               ),

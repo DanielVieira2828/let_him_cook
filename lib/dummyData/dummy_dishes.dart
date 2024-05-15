@@ -42,7 +42,7 @@ List<Dish> dishList = [
         "Desfrute do sabor inigualável do nosso hambúrguer especial, preparado com carne Angus suculenta grelhada, queijo cheddar defumado, bacon crocante, cebolas empanadas e um molho de churrasco caseiro. Servido em um pão brioche tostado, é a combinação perfeita de sabor e textura.",
   ),
   const Dish(
-    uuid: "uuid",
+    uuid: "uuid2",
     image: "https://static.paodeacucar.com/img/uploads/1/959/12743959.jpeg",
     name: "Água",
     category: "Bebida",
@@ -51,7 +51,7 @@ List<Dish> dishList = [
         "Desfrute do sabor inigualável do nosso hambúrguer especial, preparado com carne Angus suculenta grelhada, queijo cheddar defumado, bacon crocante, cebolas empanadas e um molho de churrasco caseiro. Servido em um pão brioche tostado, é a combinação perfeita de sabor e textura.",
   ),
   const Dish(
-    uuid: "uuid",
+    uuid: "uuid2",
     image: "https://static.paodeacucar.com/img/uploads/1/959/12743959.jpeg",
     name: "Água",
     category: "Bebida",
@@ -60,7 +60,7 @@ List<Dish> dishList = [
         "Desfrute do sabor inigualável do nosso hambúrguer especial, preparado com carne Angus suculenta grelhada, queijo cheddar defumado, bacon crocante, cebolas empanadas e um molho de churrasco caseiro. Servido em um pão brioche tostado, é a combinação perfeita de sabor e textura.",
   ),
   const Dish(
-    uuid: "uuid",
+    uuid: "uuid2",
     image: "https://static.paodeacucar.com/img/uploads/1/959/12743959.jpeg",
     name: "Água",
     category: "Bebida",

@@ -65,7 +65,7 @@ class CpfForm extends StatelessWidget {
                 "ENTRAR",
                 style: TextStyle(
                   color: Colors.white,
-                  fontSize: 60,
+                  fontSize: 50,
                   fontWeight: FontWeight.bold,
                 ),
               ),
