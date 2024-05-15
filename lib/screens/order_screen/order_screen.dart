@@ -4,8 +4,11 @@ import 'package:flutter/widgets.dart';
 import 'package:let_him_cook/constants.dart';
 import 'package:let_him_cook/dummyData/dummy_dishes.dart';
 import 'package:let_him_cook/models/dish_model.dart';
+import 'package:let_him_cook/models/order_model.dart';
 import 'package:let_him_cook/screens/order_screen/widget/dish_cards.dart';
+import 'package:let_him_cook/screens/order_screen/widget/dish_modal.dart';
 import 'package:let_him_cook/screens/order_screen/widget/menu_items.dart';
+import 'package:badges/badges.dart' as badges;
 
 class OrderScreen extends StatefulWidget {
   const OrderScreen({
@@ -17,6 +20,7 @@ class OrderScreen extends StatefulWidget {
 }
 
 class _OrderScreenState extends State<OrderScreen> {
+  List<Dish> orderedDishes = [];
   List<Dish> dishes = [];
   String category = "Lanche";
 
@@ -25,6 +29,31 @@ class _OrderScreenState extends State<OrderScreen> {
     dishes = dishList;
     category = "Lanche";
     super.initState();
+  }
+
+  addToOrderedDishes(Dish dish) {
+    if (!orderedDishes.contains(dish)) {
+      setState(() {
+        orderedDishes.add(dish);
+      });
+    }
+    Navigator.pop(context);
+  }
+
+  bottomModal(Dish dish) {
+    showDialog(
+        barrierDismissible: true,
+        context: context,
+        useSafeArea: true,
+        builder: (BuildContext context) {
+          return Dialog(
+            backgroundColor: Colors.white,
+            child: DishModal(
+              dish: dish,
+              addDish: addToOrderedDishes,
+            ),
+          );
+        });
   }
 
   changeCategory(String newCategory) {
@@ -117,6 +146,7 @@ class _OrderScreenState extends State<OrderScreen> {
             child: Stack(
               children: [
                 Container(
+                  alignment: Alignment.topLeft,
                   padding: const EdgeInsets.only(
                     bottom: 40,
                     left: 32,
@@ -140,7 +170,11 @@ class _OrderScreenState extends State<OrderScreen> {
                       var dish = filteredDishes[index];
                       return DishCard(
                         dish: dish,
-                        openDishModal: () {},
+                        openDishModal: () {
+                          bottomModal(
+                            dish,
+                          );
+                        },
                       );
                     },
                   ),
@@ -148,30 +182,48 @@ class _OrderScreenState extends State<OrderScreen> {
                 Positioned(
                   bottom: 12,
                   right: 32,
-                  child: SizedBox(
-                    width: 170,
-                    height: 60,
-                    child: ElevatedButton(
-                      onPressed: () {},
-                      style: const ButtonStyle(
-                        backgroundColor: MaterialStatePropertyAll(onBackground),
-                        shape: MaterialStatePropertyAll(
-                          RoundedRectangleBorder(
-                            borderRadius: BorderRadius.all(
-                              Radius.circular(16),
+                  child: Stack(
+                    children: [
+                      badges.Badge(
+                        badgeStyle: const badges.BadgeStyle(
+                            badgeColor: primaryColor,
+                            padding: EdgeInsets.all(8)),
+                        badgeContent: Text(
+                          orderedDishes.length.toString(),
+                          style: const TextStyle(
+                            color: secondaryColor,
+                            fontSize: 15,
+                            fontWeight: FontWeight.bold,
+                          ),
+                        ),
+                        child: SizedBox(
+                          width: 170,
+                          height: 60,
+                          child: ElevatedButton(
+                            onPressed: () {},
+                            style: const ButtonStyle(
+                              backgroundColor:
+                                  MaterialStatePropertyAll(onBackground),
+                              shape: MaterialStatePropertyAll(
+                                RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.all(
+                                    Radius.circular(16),
+                                  ),
+                                ),
+                              ),
+                            ),
+                            child: const Text(
+                              "Fazer pedido",
+                              style: TextStyle(
+                                color: Colors.white,
+                                fontSize: 20,
+                                fontWeight: FontWeight.bold,
+                              ),
                             ),
                           ),
                         ),
                       ),
-                      child: const Text(
-                        "Fazer pedido",
-                        style: TextStyle(
-                          color: Colors.white,
-                          fontSize: 20,
-                          fontWeight: FontWeight.bold,
-                        ),
-                      ),
-                    ),
+                    ],
                   ),
                 ),
               ],
