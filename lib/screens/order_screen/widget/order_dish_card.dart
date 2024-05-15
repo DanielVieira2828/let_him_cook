@@ -5,9 +5,15 @@ class OrderDishCard extends StatelessWidget {
   const OrderDishCard({
     super.key,
     required this.orderedDish,
+    required this.sumQuantity,
+    required this.subQuantity,
+    required this.delQuantity,
   });
 
   final DishOnOrder orderedDish;
+  final Function sumQuantity;
+  final Function subQuantity;
+  final Function delQuantity;
 
   @override
   Widget build(BuildContext context) {

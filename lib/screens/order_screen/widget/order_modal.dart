@@ -25,6 +25,58 @@ class _OrderModalState extends State<OrderModal> {
     super.initState();
   }
 
+  sumQuantity(DishOnOrder dish) {
+    setState(() {
+      for (int i = 0; i < dishes.length; i++) {
+        if (dishes[i].uuid == dish.uuid) {
+          DishOnOrder updatedDish = DishOnOrder(
+            uuid: dish.uuid,
+            image: dish.image,
+            category: dish.category,
+            name: dish.name,
+            price: dish.price,
+            description: dish.description,
+            quantity: dish.quantity + 1,
+          );
+
+          dishes[i] = updatedDish;
+          break;
+        }
+      }
+    });
+  }
+
+  subQuantity(DishOnOrder dish) {
+    setState(() {
+      for (int i = 0; i < dishes.length; i++) {
+        if (dishes[i].uuid == dish.uuid) {
+          if (dishes[i].quantity > 1) {
+            DishOnOrder updatedDish = DishOnOrder(
+              uuid: dish.uuid,
+              image: dish.image,
+              category: dish.category,
+              name: dish.name,
+              price: dish.price,
+              description: dish.description,
+              quantity: dish.quantity - 1,
+            );
+
+            dishes[i] = updatedDish;
+          } else {
+            dishes.removeAt(i);
+          }
+          break;
+        }
+      }
+    });
+  }
+
+  delQuantity(DishOnOrder dish) {
+    setState(() {
+      dishes.removeWhere((item) => item.uuid == dish.uuid);
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return Container(
