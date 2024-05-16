@@ -3,9 +3,11 @@ import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:let_him_cook/constants.dart';
 import 'package:let_him_cook/dummyData/dummy_dishes.dart';
+import 'package:let_him_cook/models/bill_model.dart';
 import 'package:let_him_cook/models/dish_model.dart';
 import 'package:let_him_cook/models/dish_on_order.dart';
 import 'package:let_him_cook/models/order_model.dart';
+import 'package:let_him_cook/screens/bill_screen/bill_screen.dart';
 import 'package:let_him_cook/screens/order_screen/widget/dish_cards.dart';
 import 'package:let_him_cook/screens/order_screen/widget/dish_modal.dart';
 import 'package:let_him_cook/screens/order_screen/widget/menu_items.dart';
@@ -22,6 +24,8 @@ class OrderScreen extends StatefulWidget {
 }
 
 class _OrderScreenState extends State<OrderScreen> {
+  late Bill userBill =
+      const Bill(uuid: "", clientUuid: "", table: 1, orders: []);
   List<DishOnOrder> orderedDishes = [];
   List<Dish> dishes = [];
   String category = "Lanche";
@@ -31,6 +35,26 @@ class _OrderScreenState extends State<OrderScreen> {
     dishes = dishList;
     category = "Lanche";
     super.initState();
+  }
+
+  void createOrderAndAddToBill(List<DishOnOrder> orderedDishes) {
+    double totalPrice = orderedDishes.fold(0,
+        (previousValue, dish) => previousValue + (dish.quantity * dish.price));
+
+    String orderUuid = "";
+
+    Order order = Order(
+      uuid: orderUuid,
+      clientUuid: userBill.clientUuid,
+      table: userBill.table,
+      totalPrice: totalPrice,
+      dishes: orderedDishes,
+    );
+
+    setState(() {
+      userBill = userBill.addOrder(order);
+      orderedDishes.clear();
+    });
   }
 
   void addToOrderedDishes(Dish dish) {
@@ -94,8 +118,16 @@ class _OrderScreenState extends State<OrderScreen> {
         useSafeArea: true,
         builder: (BuildContext context) {
           return Dialog(
-              backgroundColor: Colors.white,
-              child: OrderModal(orderedDishes: orderedDishes));
+            backgroundColor: Colors.white,
+            child: OrderModal(
+              orderedDishes: orderedDishes,
+              addOrderToBill: () {
+                createOrderAndAddToBill(orderedDishes);
+                orderedDishes = [];
+                Navigator.pop(context);
+              },
+            ),
+          );
         });
   }
 
@@ -155,6 +187,13 @@ class _OrderScreenState extends State<OrderScreen> {
                     ),
                   ),
                   InkWell(
+                    onTap: () {
+                      Navigator.of(context).push(MaterialPageRoute(
+                        builder: (context) => BillScreen(
+                          userBill: userBill,
+                        ),
+                      ));
+                    },
                     child: Container(
                       height: 150,
                       width: double.infinity,
