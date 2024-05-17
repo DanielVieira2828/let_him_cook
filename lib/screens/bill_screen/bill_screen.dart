@@ -1,7 +1,8 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+
 import 'package:let_him_cook/constants.dart';
 import 'package:let_him_cook/models/bill_model.dart';
+import 'package:let_him_cook/screens/bill_screen/widgets/order_card.dart';
 
 class BillScreen extends StatelessWidget {
   const BillScreen({
@@ -16,24 +17,41 @@ class BillScreen extends StatelessWidget {
     double totalBillValue = userBill.calculateTotalBillValue();
 
     return Scaffold(
+      extendBodyBehindAppBar: true,
       appBar: AppBar(
         backgroundColor: Colors.transparent,
       ),
       backgroundColor: primaryColor,
-      body: SizedBox(
-        height: double.infinity,
+      body: Container(
         width: double.infinity,
+        alignment: Alignment.center,
         child: Container(
-          width: 500,
           padding: const EdgeInsets.all(16),
+          decoration: const BoxDecoration(
+            color: Colors.white,
+          ),
+          width: 700,
           child: Column(
             children: [
+              Expanded(
+                child: ListView.builder(
+                  scrollDirection: Axis.vertical,
+                  itemCount: userBill.orders.length,
+                  itemBuilder: (context, index) {
+                    return BillOrderCard(
+                      order: userBill.orders[index],
+                    );
+                  },
+                ),
+              ),
               const Divider(
                 thickness: 2,
                 color: secondaryColor,
               ),
-              Container(
-                margin: const EdgeInsets.only(top: 8),
+              const SizedBox(
+                height: 16,
+              ),
+              SizedBox(
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                   children: [

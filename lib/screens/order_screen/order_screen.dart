@@ -53,7 +53,7 @@ class _OrderScreenState extends State<OrderScreen> {
 
     setState(() {
       userBill = userBill.addOrder(order);
-      orderedDishes.clear();
+      orderedDishes = [];
     });
   }
 
