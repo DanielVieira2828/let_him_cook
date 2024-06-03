@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:let_him_cook/constants.dart';
 import 'package:let_him_cook/dummyData/dummy_dishes.dart';
 import 'package:let_him_cook/models/bill_model.dart';
@@ -49,6 +50,7 @@ class _OrderScreenState extends State<OrderScreen> {
       table: userBill.table,
       totalPrice: totalPrice,
       dishes: orderedDishes,
+      state: "PENDENTE",
     );
 
     setState(() {
@@ -149,9 +151,33 @@ class _OrderScreenState extends State<OrderScreen> {
         child: Container(
           color: primaryColor,
           height: double.infinity,
-          child: const Row(
+          child: Row(
             crossAxisAlignment: CrossAxisAlignment.center,
-            children: [],
+            children: [
+              SizedBox(
+                height: 210,
+                width: 210,
+                child: Image.asset(
+                  "assets/images/Illustration.png",
+                  fit: BoxFit.cover,
+                ),
+              ),
+              Expanded(
+                child: SizedBox(
+                  width: double.infinity,
+                  child: Center(
+                    child: Text("Let Him Cook",
+                        style: GoogleFonts.dosis(
+                          textStyle: const TextStyle(
+                            color: Colors.white,
+                            fontWeight: FontWeight.bold,
+                            fontSize: 80,
+                          ),
+                        )),
+                  ),
+                ),
+              ),
+            ],
           ),
         ),
       ),

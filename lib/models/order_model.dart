@@ -7,6 +7,7 @@ class Order {
     required this.table,
     required this.totalPrice,
     required this.dishes,
+    required this.state,
   });
 
   final String uuid;
@@ -14,4 +15,5 @@ class Order {
   final int table;
   final double totalPrice;
   final List<DishOnOrder> dishes;
+  final String state;
 }

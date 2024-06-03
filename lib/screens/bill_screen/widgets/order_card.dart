@@ -4,9 +4,9 @@ import 'package:let_him_cook/models/order_model.dart';
 
 class BillOrderCard extends StatelessWidget {
   const BillOrderCard({
-    Key? key,
+    super.key,
     required this.order,
-  }) : super(key: key);
+  });
 
   final Order order;
 
@@ -28,13 +28,26 @@ class BillOrderCard extends StatelessWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          const Text(
-            "Items do pedido:",
-            style: TextStyle(
-              fontSize: 20,
-              fontWeight: FontWeight.bold,
-              color: secondaryColor,
-            ),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              const Text(
+                "Items do pedido:",
+                style: TextStyle(
+                  fontSize: 20,
+                  fontWeight: FontWeight.bold,
+                  color: secondaryColor,
+                ),
+              ),
+              Text(
+                "Status do pedido: ${order.state}",
+                style: const TextStyle(
+                  fontSize: 20,
+                  fontWeight: FontWeight.bold,
+                  color: secondaryColor,
+                ),
+              ),
+            ],
           ),
           const SizedBox(
             height: 8,

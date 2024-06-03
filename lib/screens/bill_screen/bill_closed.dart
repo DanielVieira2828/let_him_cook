@@ -1,8 +1,4 @@
-import 'dart:async';
-
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:let_him_cook/constants.dart';
 import 'package:let_him_cook/models/bill_model.dart';
 import 'package:let_him_cook/screens/bill_screen/widgets/order_card.dart';
