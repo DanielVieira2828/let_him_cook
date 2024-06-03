@@ -1,4 +1,6 @@
+import 'package:brasil_fields/brasil_fields.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:let_him_cook/constants.dart';
 
 class CpfForm extends StatelessWidget {
@@ -29,7 +31,11 @@ class CpfForm extends StatelessWidget {
           const SizedBox(
             height: 16,
           ),
-          TextField(
+          TextFormField(
+            inputFormatters: [
+              FilteringTextInputFormatter.digitsOnly,
+              CpfInputFormatter(),
+            ],
             style: const TextStyle(fontSize: 30, color: secondaryColor),
             enabled: true,
             controller: cpfController,
